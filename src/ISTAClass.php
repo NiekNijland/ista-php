@@ -2,6 +2,4 @@
 
 namespace NiekNijland\ISTA;
 
-class ISTAClass
-{
-}
+class ISTAClass {}
