@@ -1,0 +1,37 @@
+name: Integration Tests
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Every day at 08:00 UTC
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    name: Live API
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, mbstring
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Execute integration tests
+        env:
+          ISTA_USERNAME: ${{ secrets.ISTA_USERNAME }}
+          ISTA_PASSWORD: ${{ secrets.ISTA_PASSWORD }}
+        run: vendor/bin/phpunit --testsuite Integration --no-coverage

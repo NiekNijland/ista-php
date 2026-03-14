@@ -1,10 +1,12 @@
-# ISTA PHP
+# Ista PHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nieknijland/ista-php.svg?style=flat-square)](https://packagist.org/packages/nieknijland/ista-php)
 [![Tests](https://img.shields.io/github/actions/workflow/status/nieknijland/ista-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/nieknijland/ista-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/nieknijland/ista-php.svg?style=flat-square)](https://packagist.org/packages/nieknijland/ista-php)
 
-PHP client for the ISTA energy consumption API at `mijn.ista.nl`. Framework-agnostic, zero Laravel dependencies.
+PHP client for the Ista energy consumption API at `mijn.ista.nl`. Framework-agnostic, zero Laravel dependencies.
+
+Requires PHP 8.4+.
 
 ## Installation
 
@@ -12,61 +14,91 @@ PHP client for the ISTA energy consumption API at `mijn.ista.nl`. Framework-agno
 composer require nieknijland/ista-php
 ```
 
-## Usage
+## Quick start
 
 ```php
-use NiekNijland\ISTA\Ista;
+use NiekNijland\Ista\Ista;
 
 $ista = new Ista(
     username: 'your@email.com',
     password: 'your-password',
 );
 
-// Get consumption data
+// Fetch all consumption data
 $userValues = $ista->getUserValues();
 
 $customer = $userValues->customers[0];
-echo $customer->cuid;
-echo $customer->consumption->start->format('Y-m-d');
 
 foreach ($customer->consumption->services as $service) {
-    echo "Current usage: {$service->totalNow}";
-    echo "Previous year: {$service->totalPrevious}";
+    echo "Current usage: {$service->totalNow}\n";
+    echo "Previous year: {$service->totalPrevious}\n";
 
     foreach ($service->currentMeters as $meter) {
-        echo "{$meter->position}: {$meter->value}";
+        echo "  {$meter->position}: {$meter->value}\n";
     }
 }
-
-// Get building average
-$averages = $ista->getConsumptionAverages(
-    cuid: $customer->cuid,
-    start: $customer->consumption->start,
-    end: $customer->consumption->end,
-);
-
-echo "Building average: {$averages->getNormalizedValue()}";
 ```
 
-### Constructor Options
+## Constructor
 
 ```php
 $ista = new Ista(
     username: 'your@email.com',
     password: 'your-password',
-    httpClient: $customGuzzleClient,  // ?ClientInterface, defaults to new Client()
-    cache: $psr16Cache,               // ?CacheInterface (PSR-16), defaults to null
-    cacheTtl: 3600,                   // Cache TTL in seconds, defaults to 3600
+    httpClient: $customGuzzleClient,  // ?ClientInterface, default: new Client()
+    cache: $psr16Cache,               // ?CacheInterface (PSR-16), default: null (no caching)
+    cacheTtl: 3600,                   // int, cache TTL in seconds, default: 3600
 );
 ```
 
-### Caching
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `$username` | `string` | *(required)* | Your mijn.ista.nl username |
+| `$password` | `string` | *(required)* | Your mijn.ista.nl password (marked `#[SensitiveParameter]`) |
+| `$httpClient` | `?ClientInterface` | `null` | Custom Guzzle HTTP client; `null` creates a default one |
+| `$cache` | `?CacheInterface` | `null` | Any PSR-16 cache implementation; `null` disables caching |
+| `$cacheTtl` | `int` | `3600` | Cache time-to-live in seconds |
 
-Pass any PSR-16 `CacheInterface` implementation to cache API responses and the JWT token:
+## API methods
+
+The client provides four methods. All throw `IstaException` on failure.
+
+| Method | Description |
+|--------|-------------|
+| [`getUserValues()`](docs/api-methods.md#getuservalues) | Fetch all customers, meters, and billing data |
+| [`getConsumptionAverages()`](docs/api-methods.md#getconsumptionaverages) | Fetch building average consumption |
+| [`getMonthlyConsumption()`](docs/api-methods.md#getmonthlyconsumption) | Fetch month-by-month consumption history |
+| [`getConsumptionValues()`](docs/api-methods.md#getconsumptionvalues) | Fetch consumption for a specific billing period |
+
+See [API Methods](docs/api-methods.md) for full parameter documentation and examples.
+
+## Data objects
+
+All API responses are returned as readonly DTOs with typed properties. Every DTO provides `fromArray()` and `toArray()` for serialization.
+
+| Class | Description |
+|-------|-------------|
+| [`UserValuesResult`](docs/data-objects.md#uservaluesresult) | Top-level response with customers |
+| [`Customer`](docs/data-objects.md#customer) | A customer with address and consumption data |
+| [`ConsumptionPeriod`](docs/data-objects.md#consumptionperiod) | A billing period with services, meters, and temperatures |
+| [`ServiceComparison`](docs/data-objects.md#servicecomparison) | Current vs. previous year totals for a service type |
+| [`Meter`](docs/data-objects.md#meter) | A single meter reading with all technical fields |
+| [`BillingService`](docs/data-objects.md#billingservice) | Service type definition (e.g. Heating, Hot Water) |
+| [`BillingPeriod`](docs/data-objects.md#billingperiod) | A billing year with start/end dates |
+| [`ConsumptionAverageResult`](docs/data-objects.md#consumptionaverageresult) | Building average consumption |
+| [`ConsumptionValuesResult`](docs/data-objects.md#consumptionvaluesresult) | Consumption data for a specific billing period |
+| [`MonthlyConsumptionResult`](docs/data-objects.md#monthlyconsumptionresult) | Monthly consumption history |
+| [`MonthlyConsumption`](docs/data-objects.md#monthlyconsumption) | A single month's consumption |
+| [`MonthlyServiceConsumption`](docs/data-objects.md#monthlyserviceconsumption) | Per-service totals for a month |
+| [`MonthlyDeviceConsumption`](docs/data-objects.md#monthlydeviceconsumption) | Per-device readings for a month |
+
+See [Data Objects](docs/data-objects.md) for all properties and types.
+
+## Caching
+
+Pass any PSR-16 `CacheInterface` to cache API responses and the JWT token:
 
 ```php
-use NiekNijland\ISTA\Ista;
-
 $ista = new Ista(
     username: 'your@email.com',
     password: 'your-password',
@@ -75,76 +107,62 @@ $ista = new Ista(
 );
 ```
 
-The JWT token is cached separately to avoid re-authenticating on every call.
+Cache keys used:
 
-### Error Handling
+| Key pattern | Data |
+|-------------|------|
+| `ista:jwt` | Authentication token |
+| `ista:user-values` | `getUserValues()` response |
+| `ista:consumption-averages:{cuid}:{start}:{end}` | `getConsumptionAverages()` response |
+| `ista:monthly-consumption:{cuid}` | `getMonthlyConsumption()` response |
+| `ista:consumption-values:{cuid}:{year}:{start}:{end}` | `getConsumptionValues()` response |
 
-All errors are wrapped in `IstaException`:
+Cache failures are silently ignored -- the client will re-fetch from the API.
+
+## Error handling
+
+All errors are wrapped in a single exception class:
 
 ```php
-use NiekNijland\ISTA\Exception\IstaException;
+use NiekNijland\Ista\Exception\IstaException;
 
 try {
     $result = $ista->getUserValues();
 } catch (IstaException $e) {
     // Authentication failures, HTTP errors, malformed responses
+    // Original exception is available via $e->getPrevious()
 }
 ```
 
 ## Testing
 
-The package ships with testing utilities for use in your application tests.
-
-### FakeIsta
+The package ships testing utilities so you can mock the Ista client in your application tests without making real API calls.
 
 ```php
-use NiekNijland\ISTA\Testing\FakeIsta;
-use NiekNijland\ISTA\Testing\UserValuesResultFactory;
-use NiekNijland\ISTA\Testing\ConsumptionAverageResultFactory;
+use NiekNijland\Ista\Testing\FakeIsta;
+use NiekNijland\Ista\Testing\UserValuesResultFactory;
 
 $fake = new FakeIsta();
-
-// Seed responses
 $fake->seedUserValuesResult(UserValuesResultFactory::make());
-$fake->seedConsumptionAverageResult(ConsumptionAverageResultFactory::make());
 
-// Use in place of the real client (implements IstaInterface)
 $result = $fake->getUserValues();
 
-// Assertions
 $fake->assertCalled('getUserValues');
 $fake->assertCalledTimes('getUserValues', 1);
-$fake->assertNotCalled('getConsumptionAverages');
-
-// Simulate errors
-$fake->shouldThrow(new IstaException('API down'));
 ```
 
-### Factories
+See [Testing](docs/testing.md) for full documentation of `FakeIsta`, all factories, and recorded call inspection.
 
-All DTOs have corresponding factories:
-
-```php
-use NiekNijland\ISTA\Testing\MeterFactory;
-use NiekNijland\ISTA\Testing\ServiceComparisonFactory;
-use NiekNijland\ISTA\Testing\ConsumptionPeriodFactory;
-use NiekNijland\ISTA\Testing\CustomerFactory;
-use NiekNijland\ISTA\Testing\UserValuesResultFactory;
-use NiekNijland\ISTA\Testing\ConsumptionAverageResultFactory;
-
-$meter = MeterFactory::make(meterId: 'CUSTOM-001', value: 999);
-$customer = CustomerFactory::make(cuid: 'MY-CUID');
-$result = UserValuesResultFactory::make(customers: [$customer]);
-```
-
-### Running Package Tests
+## Development
 
 ```bash
 composer test              # Unit tests
-composer test-integration  # Integration tests (requires credentials)
-composer test-all          # All tests
-composer analyse           # PHPStan
-composer codestyle         # Rector + Pint + PHPStan
+composer test-integration  # Integration tests (requires ISTA_USERNAME and ISTA_PASSWORD)
+composer test-all          # All test suites
+composer analyse           # PHPStan level 8
+composer format            # Laravel Pint
+composer rector            # Rector automated refactoring
+composer codestyle         # Full pipeline: Rector + Pint + PHPStan
 ```
 
 ## Changelog
