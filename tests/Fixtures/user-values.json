@@ -1,0 +1,158 @@
+{
+    "DisplayName": "John Doe",
+    "Cus": [
+        {
+            "Cuid": "CUST-12345",
+            "Adress": "Teststraat 42",
+            "Zip": "1234 AB",
+            "City": "Amsterdam",
+            "DateStart": "01-01-2020",
+            "curConsumption": {
+                "CurStart": "01-01-2024",
+                "CurEnd": "31-12-2024",
+                "CompStart": "01-01-2023",
+                "CompEnd": "31-12-2023",
+                "CurAverageTemp": 10.5,
+                "CompAverageTemp": 9.8,
+                "Billingservices": [
+                    {
+                        "Id": 1,
+                        "Description": "Heating",
+                        "MeterType": "HKV",
+                        "Unit": "Units"
+                    },
+                    {
+                        "Id": 2,
+                        "Description": "Hot Water",
+                        "MeterType": "WWM",
+                        "Unit": "m3"
+                    }
+                ],
+                "BillingPeriods": [
+                    {
+                        "y": 2024,
+                        "s": "2024-01-01T00:00:00",
+                        "e": "2024-12-31T00:00:00",
+                        "ta": 10.5
+                    },
+                    {
+                        "y": 2023,
+                        "s": "2023-01-01T00:00:00",
+                        "e": "2023-12-31T00:00:00",
+                        "ta": 9.8
+                    }
+                ],
+                "ServicesComp": [
+                    {
+                        "Id": 1,
+                        "DecPos": 0,
+                        "TotalNow": 250,
+                        "TotalPrevious": 230,
+                        "TotalDiffperc": 8,
+                        "TotalWholePrevious": 280,
+                        "CurMeters": [
+                            {
+                                "MeterId": "MTR-001",
+                                "serviceId": 1,
+                                "BillingPeriodId": 2024,
+                                "RadNr": 1,
+                                "Order": 1,
+                                "Position": "Living Room",
+                                "ArtNr": 11490,
+                                "MeterNr": 12345,
+                                "TransferLoss": 0,
+                                "Multiply": 1,
+                                "Reduction": 0,
+                                "CalcFactor": 1.2,
+                                "BsDate": "01-01-2024",
+                                "BeginValue": 100,
+                                "EsDate": "31-12-2024",
+                                "EndValue": 250,
+                                "CValue": 148,
+                                "CCValue": 150,
+                                "CCDValue": 150,
+                                "DecPos": 0,
+                                "SValR": 0,
+                                "EvalR": 0
+                            },
+                            {
+                                "MeterId": "MTR-002",
+                                "serviceId": 1,
+                                "BillingPeriodId": 2024,
+                                "RadNr": 2,
+                                "Order": 1,
+                                "Position": "Bedroom",
+                                "ArtNr": 11490,
+                                "MeterNr": 12346,
+                                "TransferLoss": 0,
+                                "Multiply": 1,
+                                "Reduction": 0,
+                                "CalcFactor": 1.0,
+                                "BsDate": "01-01-2024",
+                                "BeginValue": 50,
+                                "EsDate": "31-12-2024",
+                                "EndValue": 150,
+                                "CValue": 99,
+                                "CCValue": 100,
+                                "CCDValue": 100,
+                                "DecPos": 0,
+                                "SValR": 0,
+                                "EvalR": 0
+                            }
+                        ],
+                        "CompMeters": [
+                            {
+                                "MeterId": "MTR-001",
+                                "serviceId": 1,
+                                "BillingPeriodId": 2023,
+                                "RadNr": 1,
+                                "Order": 1,
+                                "Position": "Living Room",
+                                "ArtNr": 11490,
+                                "MeterNr": 12345,
+                                "TransferLoss": 0,
+                                "Multiply": 1,
+                                "Reduction": 0,
+                                "CalcFactor": 1.2,
+                                "BsDate": "01-01-2023",
+                                "BeginValue": 0,
+                                "EsDate": "31-12-2023",
+                                "EndValue": 140,
+                                "CValue": 138,
+                                "CCValue": 140,
+                                "CCDValue": 140,
+                                "DecPos": 0,
+                                "SValR": 0,
+                                "EvalR": 0
+                            },
+                            {
+                                "MeterId": "MTR-002",
+                                "serviceId": 1,
+                                "BillingPeriodId": 2023,
+                                "RadNr": 2,
+                                "Order": 1,
+                                "Position": "Bedroom",
+                                "ArtNr": 11490,
+                                "MeterNr": 12346,
+                                "TransferLoss": 0,
+                                "Multiply": 1,
+                                "Reduction": 0,
+                                "CalcFactor": 1.0,
+                                "BsDate": "01-01-2023",
+                                "BeginValue": 0,
+                                "EsDate": "31-12-2023",
+                                "EndValue": 90,
+                                "CValue": 89,
+                                "CCValue": 90,
+                                "CCDValue": 90,
+                                "DecPos": 0,
+                                "SValR": 0,
+                                "EvalR": 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

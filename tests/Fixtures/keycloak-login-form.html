@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log in met ista NL</title>
+</head>
+<body>
+    <div id="kc-form">
+        <form id="kc-form-login" action="https://login.ista.com/realms/portal_nl/login-actions/authenticate?session_code=test-session&amp;execution=test-execution&amp;client_id=mijnista&amp;tab_id=test-tab" method="post">
+            <label for="username">Gebruikersnaam of e-mailadres</label>
+            <input id="username" name="username" type="text" />
+            <label for="password">Wachtwoord</label>
+            <input id="password" name="password" type="password" />
+            <input type="hidden" id="id-hidden-input" name="credentialId" />
+            <input type="submit" name="login" value="Log in" />
+        </form>
+    </div>
+</body>
+</html>

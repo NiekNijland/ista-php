@@ -1,9 +1,11 @@
 {
     "name": "nieknijland/ista-php",
-    "description": "This is my package ista-php",
+    "description": "PHP client for the Ista energy consumption API",
     "keywords": [
-        "NiekNijland",
-        "ista-php"
+        "ista",
+        "energy",
+        "consumption",
+        "heating"
     ],
     "homepage": "https://github.com/nieknijland/ista-php",
     "license": "MIT",
@@ -15,32 +17,45 @@
         }
     ],
     "require": {
-        "php": "^8.4"
+        "php": "^8.4",
+        "guzzlehttp/guzzle": "^7.0",
+        "psr/simple-cache": "^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.3.2",
         "laravel/pint": "^1.0",
-        "spatie/ray": "^1.28"
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^10.3",
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "NiekNijland\\ISTA\\": "src"
+            "NiekNijland\\Ista\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NiekNijland\\ISTA\\Tests\\": "tests"
+            "NiekNijland\\Ista\\Tests\\": "tests"
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-            "test-coverage": "vendor/bin/phpunit --coverage",
-        "format": "vendor/bin/pint"
+        "test": "vendor/bin/phpunit --testsuite=Unit --no-coverage",
+        "test-integration": "vendor/bin/phpunit --testsuite=Integration --no-coverage",
+        "test-all": "vendor/bin/phpunit --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --testsuite=Unit --coverage",
+        "format": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse",
+        "rector": "vendor/bin/rector process",
+        "rector:dry-run": "vendor/bin/rector process --dry-run",
+        "pint": "vendor/bin/pint",
+        "codestyle": [
+            "@rector",
+            "@pint",
+            "@analyse"
+        ]
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            
             "phpstan/extension-installer": true
         }
     },

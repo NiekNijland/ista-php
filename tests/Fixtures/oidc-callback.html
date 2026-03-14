@@ -1,0 +1,17 @@
+<HTML>
+<HEAD>
+    <TITLE>OIDC Form_Post Response</TITLE>
+</HEAD>
+<BODY Onload="document.forms[0].submit()">
+    <FORM METHOD="POST" ACTION="https://mijn.ista.nl/signin-oidc">
+        <INPUT TYPE="HIDDEN" NAME="code" VALUE="test-auth-code.test-session-id.test-client-id" />
+        <INPUT TYPE="HIDDEN" NAME="iss" VALUE="https://login.ista.com/realms/portal_nl" />
+        <INPUT TYPE="HIDDEN" NAME="state" VALUE="test-state-value" />
+        <INPUT TYPE="HIDDEN" NAME="session_state" VALUE="test-session-state" />
+        <NOSCRIPT>
+            <P>JavaScript is disabled. Click the button below to continue.</P>
+            <INPUT name="continue" TYPE="SUBMIT" VALUE="CONTINUE" />
+        </NOSCRIPT>
+    </FORM>
+</BODY>
+</HTML>

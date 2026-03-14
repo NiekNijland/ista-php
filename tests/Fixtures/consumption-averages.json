@@ -1,0 +1,16 @@
+{
+    "CurStart": "01-01-2026",
+    "CurEnd": "03-07-2026",
+    "Averages": [
+        {
+            "BillingServiceId": 901,
+            "NormalizedValue": 116.732,
+            "DecPos": 3
+        },
+        {
+            "BillingServiceId": 1,
+            "NormalizedValue": 915,
+            "DecPos": 0
+        }
+    ]
+}

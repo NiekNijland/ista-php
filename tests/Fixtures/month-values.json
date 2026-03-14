@@ -1,0 +1,114 @@
+{
+    "cuid": "CUST-12345",
+    "sd": "2023-04-26T00:00:00",
+    "ed": "2026-03-07T00:00:00",
+    "sh": 36,
+    "hs": 36,
+    "ys": [2026, 2025, 2024],
+    "mc": [
+        {
+            "y": 2026,
+            "m": 3,
+            "at": 8.9,
+            "CuToken": "token-2026-03",
+            "ServiceConsumptions": [
+                {
+                    "ServiceId": 1,
+                    "TotalConsumption": 8,
+                    "BuldingAverage": 36,
+                    "HasApproximation": false,
+                    "DeviceConsumptions": [
+                        {
+                            "Id": 1789316,
+                            "Output": 1,
+                            "ArtNr": 11490,
+                            "SerialNr": 918564311,
+                            "SDate": "2026-03-01T00:00:00",
+                            "SValue": 0.0,
+                            "EDate": "2026-03-07T00:00:00",
+                            "EValue": 8.0,
+                            "CValue": 8.0,
+                            "CCValue": 8.0,
+                            "CCDValue": 8,
+                            "ProgJump": "9998-12-31T00:00:00",
+                            "Active": "2020-03-02T00:00:00",
+                            "RoomDescr": "Hal"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "y": 2026,
+            "m": 2,
+            "at": 5.2,
+            "CuToken": "token-2026-02",
+            "ServiceConsumptions": [
+                {
+                    "ServiceId": 1,
+                    "TotalConsumption": 45,
+                    "BuldingAverage": 120,
+                    "HasApproximation": false,
+                    "DeviceConsumptions": [
+                        {
+                            "Id": 1789316,
+                            "Output": 1,
+                            "ArtNr": 11490,
+                            "SerialNr": 918564311,
+                            "SDate": "2026-02-01T00:00:00",
+                            "SValue": 100.0,
+                            "EDate": "2026-02-28T00:00:00",
+                            "EValue": 145.0,
+                            "CValue": 45.0,
+                            "CCValue": 45.0,
+                            "CCDValue": 45,
+                            "ProgJump": "9998-12-31T00:00:00",
+                            "Active": "2020-03-02T00:00:00",
+                            "RoomDescr": "Hal"
+                        },
+                        {
+                            "Id": 1789317,
+                            "Output": 1,
+                            "ArtNr": 11490,
+                            "SerialNr": 918564312,
+                            "SDate": "2026-02-01T00:00:00",
+                            "SValue": 200.0,
+                            "EDate": "2026-02-28T00:00:00",
+                            "EValue": 250.0,
+                            "CValue": 50.0,
+                            "CCValue": 50.0,
+                            "CCDValue": 50,
+                            "ProgJump": "9998-12-31T00:00:00",
+                            "Active": "2020-03-02T00:00:00",
+                            "RoomDescr": "Woonkamer"
+                        }
+                    ]
+                },
+                {
+                    "ServiceId": 2,
+                    "TotalConsumption": 3,
+                    "BuldingAverage": 8,
+                    "HasApproximation": true,
+                    "DeviceConsumptions": [
+                        {
+                            "Id": 1789318,
+                            "Output": 1,
+                            "ArtNr": 22000,
+                            "SerialNr": 918564313,
+                            "SDate": "2026-02-01T00:00:00",
+                            "SValue": 50.0,
+                            "EDate": "2026-02-28T00:00:00",
+                            "EValue": 53.0,
+                            "CValue": 3.0,
+                            "CCValue": 3.0,
+                            "CCDValue": 3,
+                            "ProgJump": "9998-12-31T00:00:00",
+                            "Active": "2020-03-02T00:00:00",
+                            "RoomDescr": "Badkamer"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

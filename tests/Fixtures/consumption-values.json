@@ -1,0 +1,41 @@
+{
+    "CurStart": "01-01-2025",
+    "CurEnd": "31-12-2025",
+    "ServicesComp": [
+        {
+            "Id": 1,
+            "DecPos": 0,
+            "TotalNow": 0,
+            "TotalPrevious": 0,
+            "TotalDiffperc": 0,
+            "TotalWholePrevious": 0,
+            "CurMeters": [
+                {
+                    "MeterId": "MTR-001",
+                    "serviceId": 1,
+                    "BillingPeriodId": 2025,
+                    "RadNr": 1,
+                    "Order": 1,
+                    "Position": "Living Room",
+                    "ArtNr": 11490,
+                    "MeterNr": 12345,
+                    "TransferLoss": 0,
+                    "Multiply": 1,
+                    "Reduction": 0,
+                    "CalcFactor": 1.2,
+                    "BsDate": "01-01-2025",
+                    "BeginValue": 250,
+                    "EsDate": "31-12-2025",
+                    "EndValue": 400,
+                    "CValue": 148,
+                    "CCValue": 150,
+                    "CCDValue": 150,
+                    "DecPos": 0,
+                    "SValR": 0,
+                    "EvalR": 0
+                }
+            ],
+            "CompMeters": []
+        }
+    ]
+}
